@@ -1,39 +1,33 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
 import Container from './components/Container/Container';
-import TodoList from './components/TodoList/TodoList';
-import TodoEditor from './components/TodoEditor/TodoEditor';
+import ContactList from './components/ContactList/ContactList';
+import ContactEditor from './components/ContactEditor/ContactEditor';
 import Filter from './components/Filter';
 import initialTodos from './todos.json';
 
 class App extends Component {
   state = {
-    todos: initialTodos,
+    contacts: [],
     filter: '',
   };
 
-  addTodo = (text) => {
-    const todo = {
+  addContact = (text) => {
+    const contact = {
       id: shortid.generate(),
       text,
       completed: false,
     };
 
-    this.setState(({ todos }) => ({
-      todos: [todo, ...todos],
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
     }));
   };
 
-  deleteTodo = (todoId) => {
+  deleteContact = (contactId) => {
     this.setState((prevState) => ({
-      todos: prevState.todos.filter((todo) => todo.id !== todoId),
-    }));
-  };
-
-  toggleCompleted = (todoId) => {
-    this.setState(({ todos }) => ({
-      todos: todos.map((todo) =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+      contacts: prevState.contacts.filter(
+        (contact) => contact.id !== contactId
       ),
     }));
   };
@@ -42,47 +36,36 @@ class App extends Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
-  getVisibleTodos = () => {
-    const { filter, todos } = this.state;
+  getVisibleContacts = () => {
+    const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
-    return todos.filter((todo) =>
-      todo.text.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  calculateCompletedTodos = () => {
-    const { todos } = this.state;
-
-    return todos.reduce(
-      (total, todo) => (todo.completed ? total + 1 : total),
-      0
+    return contacts.filter((contact) =>
+      contact.text.toLowerCase().includes(normalizedFilter)
     );
   };
 
   render() {
-    const { todos, filter } = this.state;
-    const totalTodoCount = todos.length;
-    const completedTodoCount = this.calculateCompletedTodos();
-    const visibleTodos = this.getVisibleTodos();
+    const { contacts, filter } = this.state;
+    const totalContactCount = contacts.length;
+    const visibleContacts = this.getVisibleContacts();
 
     return (
       <Container>
         {/* TODO: вынести в отдельный компонент */}
 
         <div>
-          <p>Всего заметок: {totalTodoCount}</p>
-          <p>Выполнено: {completedTodoCount}</p>
+          <h1>Телефонная книга</h1>
+          <p>Всего контактов: {totalContactCount}</p>
         </div>
 
-        <TodoEditor onSubmit={this.addTodo} />
+        <ContactEditor onSubmit={this.addContact} />
 
         <Filter value={filter} onChange={this.changeFilter} />
 
-        <TodoList
-          todos={visibleTodos}
-          onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
+        <ContactList
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
         />
       </Container>
     );

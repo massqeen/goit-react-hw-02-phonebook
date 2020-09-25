@@ -1,6 +1,6 @@
 @value indigo,indigo-accent,red,red-accent,green,black,white from '../../styles/_colors.module.css';
 
-.TodoList {
+.list {
   composes: lists from '../../styles/_extensions.module.css';
 
   display: grid;
