@@ -1,11 +1,5 @@
-@value colors: '../../styles/_colors.module.css';
-@value indigo,
-indigo-accent,
-red,
-red-accent,
-green,
-black,
-white from colors;
+@value indigo,indigo-accent,red,red-accent,green,black,white from '../../styles/_colors.module.css';
+
 .TodoList {
   composes: lists from '../../styles/_extensions.module.css';
 
@@ -23,6 +17,7 @@ white from colors;
   border: 1px solid black;
   border-radius: 4px;
 }
+
 .item::before {
   content: '';
   position: absolute;
@@ -35,7 +30,7 @@ white from colors;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.item--completed::before {
+.completed::before {
   transform: scaleX(1);
 }
 
@@ -43,7 +38,7 @@ white from colors;
   margin: 0 24px;
 }
 
-.item--completed .text {
+.completed .text{
   text-decoration: line-through;
 }
 

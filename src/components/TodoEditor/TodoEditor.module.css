@@ -1,11 +1,4 @@
-@value colors: '../../styles/_colors.module.css';
-@value indigo,
-indigo-accent,
-red,
-red-accent,
-green,
-black,
-white from colors;
+@value indigo,indigo-accent,red,red-accent,green,black,white from '../../styles/_colors.module.css';
 
 .TodoEditor {
   width: 600px;
