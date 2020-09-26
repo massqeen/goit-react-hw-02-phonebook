@@ -30,13 +30,15 @@ class ContactEditor extends Component {
           onChange={this.handleChange}
           placeholder={'Имя контакта'}
           name="name"
+          minLength="2"
         />
         <input
           type="tel"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
           className={styles.input}
           value={this.state.number}
           onChange={this.handleChange}
-          placeholder={'Номер телефона'}
+          placeholder={'Телефон в формате 111-111-11-11'}
           name="number"
         />
         <button type="submit" className={styles.button}>
@@ -46,5 +48,7 @@ class ContactEditor extends Component {
     );
   }
 }
-
+ContactEditor.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 export default ContactEditor;

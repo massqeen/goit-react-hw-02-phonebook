@@ -68,7 +68,9 @@ class App extends Component {
           visibleContacts={visibleContactCount}
         />
         <ContactEditor onSubmit={this.addContact} />
-        <Filter value={filter} onChange={this.changeFilter} />
+        {visibleContactCount > 0 && (
+          <Filter value={filter} onChange={this.changeFilter} />
+        )}
         <ContactList
           contacts={visibleContacts}
           onDeleteContact={this.deleteContact}

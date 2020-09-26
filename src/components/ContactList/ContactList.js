@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './ContactList.module.css';
+import PropTypes from 'prop-types';
 import ContactItem from '../ContactItem/ContactItem';
 
-const ContactList = ({ contacts, onDeleteContact }) => (
+const ContactList = ({ contacts = [], onDeleteContact }) => (
   <ul className={styles.list}>
     {contacts.map(({ id, name, number }) => {
       return (
@@ -17,5 +18,8 @@ const ContactList = ({ contacts, onDeleteContact }) => (
     })}
   </ul>
 );
-
+ContactList.propTypes = {
+  onDeleteContact: PropTypes.func.isRequired,
+  contacts: PropTypes.array,
+};
 export default ContactList;
