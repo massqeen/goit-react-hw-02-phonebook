@@ -4,44 +4,51 @@ import Container from './components/Container/Container';
 import ContactList from './components/ContactList/ContactList';
 import ContactEditor from './components/ContactEditor/ContactEditor';
 import Filter from './components/Filter';
-import initialTodos from './todos.json';
+import initialContacts from './contacts.json';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: initialContacts,
     filter: '',
   };
 
-  addContact = (text) => {
+  isContact(name) {
+    const { contacts } = this.state;
+    return contacts.filter((contact) => contact.name === name);
+  }
+
+  addContact = (name, number) => {
     const contact = {
       id: shortid.generate(),
-      text,
-      completed: false,
+      name: name,
+      number: number,
     };
+
+    if (this.isContact()) {
+      alert('name is already in contacts');
+      return;
+    }
 
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
     }));
   };
 
-  deleteContact = (contactId) => {
+  deleteContact = (contactId) =>
     this.setState((prevState) => ({
       contacts: prevState.contacts.filter(
         (contact) => contact.id !== contactId
       ),
     }));
-  };
 
-  changeFilter = (e) => {
-    this.setState({ filter: e.currentTarget.value });
-  };
+  changeFilter = (e) => this.setState({ filter: e.currentTarget.value });
 
   getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
     return contacts.filter((contact) =>
-      contact.text.toLowerCase().includes(normalizedFilter)
+      contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
