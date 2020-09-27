@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ContactItem.module.css';
 
-const ContactItem = ({ name = '', number = '', id = '', onDeleteContact }) => (
+const ContactItem = ({ name, number, id = '', onDeleteContact }) => (
   <li className={styles.item}>
     <p className={styles.text}>{name}: </p>
     <p className={styles.text}>{number}</p>

@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ContactEditor.module.css';
+import InputPhone from '../InputPhone';
 
 class ContactEditor extends Component {
   state = {
     name: '',
     number: '',
   };
-
+  number = '';
   handleChange = (e) => {
     const { name, value } = e.target;
     return this.setState({ [name]: value });
   };
+  handleChangePhone = (value) => (this.number = value);
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, number } = this.state;
-    this.props.onSubmit(name, number);
+    const { name } = this.state;
+    this.props.onSubmit(name, this.number);
     this.setState({ name: '', number: '' });
   };
 
@@ -31,8 +33,9 @@ class ContactEditor extends Component {
           placeholder={'Имя контакта'}
           name="name"
           minLength="2"
+          required
         />
-        <input
+        {/* <input
           type="tel"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
           className={styles.input}
@@ -40,7 +43,8 @@ class ContactEditor extends Component {
           onChange={this.handleChange}
           placeholder={'Телефон в формате 111-111-11-11'}
           name="number"
-        />
+        /> */}
+        <InputPhone onChange={this.handleChangePhone} />
         <button type="submit" className={styles.button}>
           Сохранить
         </button>
