@@ -6,23 +6,33 @@ import InputPhone from '../InputPhone';
 class ContactEditor extends Component {
   state = {
     name: '',
-    number: '',
+    submitted: false,
   };
-  number = '';
+
+  phoneNumber = '';
+
   handleChange = (e) => {
     const { name, value } = e.target;
+    this.resetSubmitted();
     return this.setState({ [name]: value });
   };
-  handleChangePhone = (value) => (this.number = value);
+
+  handleChangePhone = (value) => (this.phoneNumber = value);
 
   handleSubmit = (e) => {
     e.preventDefault();
     const { name } = this.state;
-    this.props.onSubmit(name, this.number);
-    this.setState({ name: '', number: '' });
+    this.props.onSubmit(name, this.phoneNumber);
+    this.setState({ name: '', submitted: true });
+    this.phoneNumber = '';
+  };
+
+  resetSubmitted = () => {
+    this.setState({ submitted: false });
   };
 
   render() {
+    const { submitted } = this.state;
     return (
       <form className={styles.editor} onSubmit={this.handleSubmit}>
         <input
@@ -44,7 +54,7 @@ class ContactEditor extends Component {
           placeholder={'Телефон в формате 111-111-11-11'}
           name="number"
         /> */}
-        <InputPhone onChange={this.handleChangePhone} />
+        <InputPhone submitted={submitted} onChange={this.handleChangePhone} />
         <button type="submit" className={styles.button}>
           Сохранить
         </button>
