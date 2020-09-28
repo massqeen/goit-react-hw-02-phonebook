@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/goit-react-hw-02-phonenumber/static/css/main.b4585295.chunk.css",
-    "main.js": "/goit-react-hw-02-phonenumber/static/js/main.583ba38c.chunk.js",
-    "main.js.map": "/goit-react-hw-02-phonenumber/static/js/main.583ba38c.chunk.js.map",
+    "main.js": "/goit-react-hw-02-phonenumber/static/js/main.773abc25.chunk.js",
+    "main.js.map": "/goit-react-hw-02-phonenumber/static/js/main.773abc25.chunk.js.map",
     "runtime-main.js": "/goit-react-hw-02-phonenumber/static/js/runtime-main.22383156.js",
     "runtime-main.js.map": "/goit-react-hw-02-phonenumber/static/js/runtime-main.22383156.js.map",
     "static/css/2.9419f0e9.chunk.css": "/goit-react-hw-02-phonenumber/static/css/2.9419f0e9.chunk.css",
     "static/js/2.3e596117.chunk.js": "/goit-react-hw-02-phonenumber/static/js/2.3e596117.chunk.js",
     "static/js/2.3e596117.chunk.js.map": "/goit-react-hw-02-phonenumber/static/js/2.3e596117.chunk.js.map",
     "index.html": "/goit-react-hw-02-phonenumber/index.html",
-    "precache-manifest.77bdb72929dc239bea67b40f9dc75a09.js": "/goit-react-hw-02-phonenumber/precache-manifest.77bdb72929dc239bea67b40f9dc75a09.js",
+    "precache-manifest.8875268d852cf5589f795e0162f61ac0.js": "/goit-react-hw-02-phonenumber/precache-manifest.8875268d852cf5589f795e0162f61ac0.js",
     "service-worker.js": "/goit-react-hw-02-phonenumber/service-worker.js",
     "static/css/2.9419f0e9.chunk.css.map": "/goit-react-hw-02-phonenumber/static/css/2.9419f0e9.chunk.css.map",
     "static/css/main.b4585295.chunk.css.map": "/goit-react-hw-02-phonenumber/static/css/main.b4585295.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.9419f0e9.chunk.css",
     "static/js/2.3e596117.chunk.js",
     "static/css/main.b4585295.chunk.css",
-    "static/js/main.583ba38c.chunk.js"
+    "static/js/main.773abc25.chunk.js"
   ]
 }
