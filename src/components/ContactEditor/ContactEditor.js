@@ -6,30 +6,28 @@ import InputPhone from '../InputPhone';
 class ContactEditor extends Component {
   state = {
     name: '',
+    number: '',
     submitted: false,
   };
 
-  phoneNumber = '';
-
   handleChange = (e) => {
     const { name, value } = e.target;
-    this.resetSubmitted();
     return this.setState({ [name]: value });
   };
 
-  handleChangePhone = (value) => (this.phoneNumber = value);
+  handleChangePhone = (value) => this.setState({ number: value });
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name } = this.state;
-    this.props.onSubmit(name, this.phoneNumber);
-    this.setState({ name: '', submitted: true });
-    this.phoneNumber = '';
+    const { name, number } = this.state;
+    this.props.onSubmit(name, number);
+    this.setState({ name: '', number: '', submitted: true });
+    this.resetSubmitted();
   };
 
-  resetSubmitted = () => {
-    this.setState({ submitted: false });
-  };
+  resetSubmitted() {
+    setTimeout(() => this.setState({ submitted: false }), 1000);
+  }
 
   render() {
     const { submitted } = this.state;

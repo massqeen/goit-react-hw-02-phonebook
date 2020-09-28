@@ -7,7 +7,6 @@ function InputPhone({ submitted, onChange }) {
   const [value, setValue] = useState('+380');
 
   useEffect(() => {
-    onChange(value);
     if (submitted) {
       setValue('+380');
     }
@@ -18,7 +17,10 @@ function InputPhone({ submitted, onChange }) {
       placeholder="Enter phone number"
       country="UA"
       value={value}
-      onChange={setValue}
+      onChange={(value) => {
+        onChange(value);
+        setValue(value);
+      }}
       style={{ marginBottom: '10px' }}
     />
   );
