@@ -11,7 +11,7 @@ function InputPhone({ submitted, onChange }) {
     if (submitted) {
       setValue('+380');
     }
-  }, [submitted]);
+  });
 
   return (
     <PhoneInput
