@@ -13,6 +13,12 @@ class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+    // eslint-disable-next-line react/no-did-mount-set-state
+    savedContacts && this.setState({ contacts: JSON.parse(savedContacts) });
+  }
+
   isContact(name) {
     const { contacts } = this.state;
     const repeatedContact = contacts.filter((contact) => contact.name === name);
@@ -35,6 +41,12 @@ class App extends Component {
       contacts: [contact, ...contacts],
     }));
   };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   deleteContact = (contactId) =>
     this.setState((prevState) => ({
