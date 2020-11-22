@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import shortid from 'shortid';
 import Container from './components/Container/Container';
 import ContactList from './components/ContactList/ContactList';
