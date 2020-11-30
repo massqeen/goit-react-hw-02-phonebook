@@ -1,9 +1,9 @@
-import styles from './ContactList.module.css';
 import PropTypes from 'prop-types';
-import ContactItem from '../ContactItem/ContactItem';
+import ContactItem from './ContactItem/ContactItem';
+import List from './ContactListStyles';
 
 const ContactList = ({ contacts = [], onDeleteContact }) => (
-  <ul className={styles.list}>
+  <List>
     {contacts.map(({ id, name, number }) => {
       return (
         <ContactItem
@@ -15,7 +15,7 @@ const ContactList = ({ contacts = [], onDeleteContact }) => (
         />
       );
     })}
-  </ul>
+  </List>
 );
 ContactList.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,

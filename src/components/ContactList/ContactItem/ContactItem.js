@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types';
-import styles from './ContactItem.module.css';
+import { Item, Text } from './ContactItemStyles';
+import Button from '../../Button';
 
 const ContactItem = ({ name, number, id = '', onDeleteContact }) => (
-  <li className={styles.item}>
-    <p className={styles.text}>{name}: </p>
-    <p className={styles.text}>{number}</p>
-    <button
-      type="button"
-      className={styles.btn}
-      onClick={() => onDeleteContact(id)}
-    >
+  <Item>
+    <Text>{name}: </Text>
+    <Text>{number}</Text>
+    <Button type="button" onClick={() => onDeleteContact(id)}>
       Удалить
-    </button>
-  </li>
+    </Button>
+  </Item>
 );
 ContactItem.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,

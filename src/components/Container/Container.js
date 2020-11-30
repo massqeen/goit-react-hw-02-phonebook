@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import styles from './Container.module.css';
+import ContainerStyled from './ContainerStyles';
 
 const Container = ({ children }) => (
-  <div className={styles.Container}>{children}</div>
+  <ContainerStyled>{children}</ContainerStyled>
 );
 Container.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  children: PropTypes.node.isRequired,
 };
 export default Container;

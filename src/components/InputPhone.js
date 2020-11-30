@@ -4,18 +4,19 @@ import PhoneInput from 'react-phone-number-input';
 import PropTypes from 'prop-types';
 
 function InputPhone({ submitted, onChange }) {
-  const [value, setValue] = useState('+380');
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     if (submitted) {
-      setValue('+380');
+      setValue('');
     }
   }, [submitted]);
 
   return (
     <PhoneInput
-      placeholder="Enter phone number"
-      country="UA"
+      defaultCountry="UA"
+      international={true}
+      withCountryCallingCode={true}
       value={value}
       onChange={(phoneValue) => {
         onChange(phoneValue);

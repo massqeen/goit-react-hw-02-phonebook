@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import styles from './ContactEditor.module.css';
 import InputPhone from '../InputPhone';
+import { Editor, EditorButton, Input } from './ContactEditorStyles';
 
 class ContactEditor extends Component {
   state = {
@@ -32,10 +32,9 @@ class ContactEditor extends Component {
   render() {
     const { submitted } = this.state;
     return (
-      <form className={styles.editor} onSubmit={this.handleSubmit}>
-        <input
+      <Editor onSubmit={this.handleSubmit}>
+        <Input
           type="text"
-          className={styles.input}
           value={this.state.name}
           onChange={this.handleChange}
           placeholder={'Имя контакта'}
@@ -53,10 +52,8 @@ class ContactEditor extends Component {
           name="number"
         /> */}
         <InputPhone submitted={submitted} onChange={this.handleChangePhone} />
-        <button type="submit" className={styles.button}>
-          Сохранить
-        </button>
-      </form>
+        <EditorButton type="submit">Сохранить</EditorButton>
+      </Editor>
     );
   }
 }
