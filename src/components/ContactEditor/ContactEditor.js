@@ -1,58 +1,55 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import InputPhone from '../InputPhone';
 import { Editor, EditorButton, Input } from './ContactEditorStyles';
 
-class ContactEditor extends Component {
-  state = {
-    name: '',
-    number: '',
-    submitted: false,
+const ContactEditor = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    return setName(value);
   };
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    return this.setState({ [name]: value });
+  const handleChangePhone = (value) => setNumber(value);
+
+  const resetSubmitted = () => {
+    setTimeout(() => setSubmitted(false), 1000);
   };
 
-  handleChangePhone = (value) => this.setState({ number: value });
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, number } = this.state;
     if (!isValidPhoneNumber(number)) {
       alert(`${number} is not valid phone number`);
       return;
     }
-    this.props.onSubmit(name, number);
-    this.setState({ name: '', number: '', submitted: true });
-    this.resetSubmitted();
+    onSubmit(name, number);
+    setName('');
+    setNumber('');
+    setSubmitted(true);
+    resetSubmitted();
   };
 
-  resetSubmitted() {
-    setTimeout(() => this.setState({ submitted: false }), 1000);
-  }
+  return (
+    <Editor onSubmit={handleSubmit}>
+      <Input
+        type="text"
+        value={name}
+        onChange={handleChange}
+        placeholder={'Имя контакта'}
+        name="name"
+        minLength="2"
+        required
+      />
+      <InputPhone submitted={submitted} onChange={handleChangePhone} />
+      <EditorButton type="submit">Сохранить</EditorButton>
+    </Editor>
+  );
+};
 
-  render() {
-    const { submitted } = this.state;
-    return (
-      <Editor onSubmit={this.handleSubmit}>
-        <Input
-          type="text"
-          value={this.state.name}
-          onChange={this.handleChange}
-          placeholder={'Имя контакта'}
-          name="name"
-          minLength="2"
-          required
-        />
-        <InputPhone submitted={submitted} onChange={this.handleChangePhone} />
-        <EditorButton type="submit">Сохранить</EditorButton>
-      </Editor>
-    );
-  }
-}
 ContactEditor.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
