@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import tokens from '../../../styles/tokens';
-import ButtonBasic from '../../../styles/ButtonBasicStyles';
 
 const Item = styled.li`
   position: relative;

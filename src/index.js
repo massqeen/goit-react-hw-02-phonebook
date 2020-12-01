@@ -9,5 +9,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// TODO верификация валидности номера телефона и проверять на совпадения номера при создании контакта

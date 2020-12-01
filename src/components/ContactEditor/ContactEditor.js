@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import InputPhone from '../InputPhone';
 import { Editor, EditorButton, Input } from './ContactEditorStyles';
 
@@ -20,6 +21,10 @@ class ContactEditor extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, number } = this.state;
+    if (!isValidPhoneNumber(number)) {
+      alert(`${number} is not valid phone number`);
+      return;
+    }
     this.props.onSubmit(name, number);
     this.setState({ name: '', number: '', submitted: true });
     this.resetSubmitted();
@@ -42,15 +47,6 @@ class ContactEditor extends Component {
           minLength="2"
           required
         />
-        {/* <input
-          type="tel"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
-          className={styles.input}
-          value={this.state.number}
-          onChange={this.handleChange}
-          placeholder={'Телефон в формате 111-111-11-11'}
-          name="number"
-        /> */}
         <InputPhone submitted={submitted} onChange={this.handleChangePhone} />
         <EditorButton type="submit">Сохранить</EditorButton>
       </Editor>

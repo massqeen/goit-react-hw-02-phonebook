@@ -19,10 +19,22 @@ class App extends Component {
     savedContacts && this.setState({ contacts: JSON.parse(savedContacts) });
   }
 
-  isContact(name) {
+  isDuplicated(name, number) {
     const { contacts } = this.state;
     const repeatedContact = contacts.filter((contact) => contact.name === name);
-    return repeatedContact.length > 0;
+    const repeatedNumber = contacts.filter(
+      (contact) => contact.number === number
+    );
+    let duplicate = null;
+    if (repeatedContact.length > 0) {
+      duplicate = 'name';
+      return duplicate;
+    }
+    if (repeatedNumber.length > 0) {
+      duplicate = 'number';
+      return duplicate;
+    }
+    return duplicate;
   }
 
   addContact = (name, number) => {
@@ -31,9 +43,13 @@ class App extends Component {
       name: name,
       number: number,
     };
-
-    if (this.isContact(name)) {
-      alert(`${name} is already in contacts`);
+    const duplicated = this.isDuplicated(name, number);
+    if (duplicated === 'name') {
+      alert(`${name} уже есть в списке контактов`);
+      return;
+    }
+    if (duplicated === 'number') {
+      alert(`Номер ${number} уже сохранен в телефонной книге`);
       return;
     }
 
