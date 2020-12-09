@@ -1,11 +1,19 @@
 import { Component } from 'react';
 import shortid from 'shortid';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Container from './components/Container/Container';
 import ContactList from './components/ContactList/ContactList';
 import ContactEditor from './components/ContactEditor/ContactEditor';
 import Filter from './components/Filter';
 import initialContacts from './contacts.json';
 import Stats from './components/Stats';
+
+const notify = (warnText) =>
+  toast.warning(warnText, {
+    position: 'top-center',
+    autoClose: 3000,
+  });
 
 class App extends Component {
   state = {
@@ -19,18 +27,18 @@ class App extends Component {
     savedContacts && this.setState({ contacts: JSON.parse(savedContacts) });
   }
 
-  isDuplicated(name, number) {
+  Duplicated(name, number) {
     const { contacts } = this.state;
-    const repeatedContact = contacts.filter((contact) => contact.name === name);
-    const repeatedNumber = contacts.filter(
+    const repeatedContact = contacts.find((contact) => contact.name === name);
+    const repeatedNumber = contacts.find(
       (contact) => contact.number === number
     );
     let duplicate = null;
-    if (repeatedContact.length > 0) {
+    if (repeatedContact) {
       duplicate = 'name';
       return duplicate;
     }
-    if (repeatedNumber.length > 0) {
+    if (repeatedNumber) {
       duplicate = 'number';
       return duplicate;
     }
@@ -43,13 +51,14 @@ class App extends Component {
       name: name,
       number: number,
     };
-    const duplicated = this.isDuplicated(name, number);
+    const duplicated = this.Duplicated(name, number);
+
     if (duplicated === 'name') {
-      alert(`${name} уже есть в списке контактов`);
+      notify(`${name} уже есть в списке контактов`);
       return;
     }
     if (duplicated === 'number') {
-      alert(`Номер ${number} уже сохранен в телефонной книге`);
+      notify(`Номер ${number} уже сохранен в телефонной книге`);
       return;
     }
 
