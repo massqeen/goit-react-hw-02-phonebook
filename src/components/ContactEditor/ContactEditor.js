@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import InputPhone from '../InputPhone';
 import { Editor, EditorButton, Input } from './ContactEditorStyles';
+
+const notify = (warnText) =>
+  toast.warning(warnText, {
+    position: 'top-center',
+    autoClose: 3000,
+  });
 
 const ContactEditor = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -23,7 +31,7 @@ const ContactEditor = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValidPhoneNumber(number)) {
-      alert(`${number} is not valid phone number`);
+      notify(`${number} is not valid phone number`);
       return;
     }
     onSubmit(name, number);

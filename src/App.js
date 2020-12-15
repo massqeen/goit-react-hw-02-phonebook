@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
 import shortid from 'shortid';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Container from './components/Container/Container';
 import ContactList from './components/ContactList/ContactList';
 import ContactEditor from './components/ContactEditor/ContactEditor';
 import Filter from './components/Filter';
 import initialContacts from './contacts.json';
 import Stats from './components/Stats';
+
+const notify = (warnText) =>
+  toast.warning(warnText, {
+    position: 'top-center',
+    autoClose: 3000,
+  });
 
 const App = () => {
   const [contacts, setContacts] = useState(initialContacts);
@@ -19,17 +27,17 @@ const App = () => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const isDuplicated = (name, number) => {
-    const repeatedContact = contacts.filter((contact) => contact.name === name);
-    const repeatedNumber = contacts.filter(
+  const Duplicated = (name, number) => {
+    const repeatedContact = contacts.find((contact) => contact.name === name);
+    const repeatedNumber = contacts.find(
       (contact) => contact.number === number
     );
     let duplicate = null;
-    if (repeatedContact.length > 0) {
+    if (repeatedContact) {
       duplicate = 'name';
       return duplicate;
     }
-    if (repeatedNumber.length > 0) {
+    if (repeatedNumber) {
       duplicate = 'number';
       return duplicate;
     }
@@ -42,13 +50,13 @@ const App = () => {
       name,
       number,
     };
-    const duplicated = isDuplicated(name, number);
+    const duplicated = Duplicated(name, number);
     if (duplicated === 'name') {
-      alert(`${name} уже есть в списке контактов`);
+      notify(`${name} уже есть в списке контактов`);
       return;
     }
     if (duplicated === 'number') {
-      alert(`Номер ${number} уже сохранен в телефонной книге`);
+      notify(`Номер ${number} уже сохранен в телефонной книге`);
       return;
     }
     setContacts((prevContacts) => [contact, ...prevContacts]);
@@ -83,6 +91,7 @@ const App = () => {
         <Filter value={filter} onChange={changeFilter} />
       )}
       <ContactList contacts={visibleContacts} onDeleteContact={deleteContact} />
+      <ToastContainer />
     </Container>
   );
 };
