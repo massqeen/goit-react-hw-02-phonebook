@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { getStateFilter } from 'redux/phonebook/phonebookSelectors';
-import { changeFilter } from 'redux/phonebook/phonebookActions';
+import { changeFilter } from 'redux/phonebook/phonebookReducer';
 
 const Filter = () => {
   const value = useSelector(getStateFilter);

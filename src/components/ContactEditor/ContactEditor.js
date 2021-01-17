@@ -4,9 +4,9 @@ import InputPhone from 'components/InputPhone';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-toastify/dist/ReactToastify.css';
 import { Editor, EditorButton, Input } from './ContactEditorStyles';
-import { addContact } from '../../redux/phonebook/phonebookActions';
+import { addContact } from 'redux/phonebook/phonebookReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStateContacts } from '../../redux/phonebook/phonebookSelectors';
+import { getStateContacts } from 'redux/phonebook/phonebookSelectors';
 
 const notify = (warnText) =>
   toast.warning(warnText, {

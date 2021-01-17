@@ -1,52 +1,59 @@
-import {
-  ADD_CONTACT,
-  DELETE_CONTACT,
-  CHANGE_FILTER,
-  GET_CONTACTS,
-} from './phonebookActionTypes';
+import { nanoid } from 'nanoid';
+import { createReducer, createAction } from '@reduxjs/toolkit';
 
 const initialState = {
   contacts: [],
   filter: '',
-  showError: false,
 };
 
-const phonebookReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case GET_CONTACTS:
-      return {
-        ...state,
-        contacts: [...state.contacts, ...payload.contacts],
-      };
+export const getContacts = createAction('GET_CONTACTS', (contacts) => ({
+  payload: {
+    contacts,
+  },
+}));
 
-    case ADD_CONTACT:
-      return {
-        ...state,
-        contacts: [
-          ...state.contacts,
-          {
-            id: payload.contact.id,
-            name: payload.contact.name,
-            number: payload.contact.number,
-          },
-        ],
-      };
+export const addContact = createAction('ADD_CONTACT', (name, number) => ({
+  payload: {
+    contact: { name, number, id: nanoid(10) },
+    showError: false,
+  },
+}));
 
-    case DELETE_CONTACT:
-      return {
-        ...state,
-        contacts: state.contacts.filter((contact) => contact.id !== payload.id),
-      };
+export const deleteContact = createAction('DELETE_CONTACT');
+export const changeFilter = createAction('CHANGE_FILTER');
 
-    case CHANGE_FILTER:
-      return {
-        ...state,
-        filter: payload.filter,
-      };
+const onGetContacts = (state, { payload }) => ({
+  ...state,
+  contacts: [...state.contacts, ...payload.contacts],
+});
 
-    default:
-      return state;
-  }
-};
+const onAddContact = (state, { payload }) => ({
+  ...state,
+  contacts: [
+    ...state.contacts,
+    {
+      name: payload.contact.name,
+      number: payload.contact.number,
+      id: payload.contact.id,
+    },
+  ],
+});
+
+const onDeleteContact = (state, { payload }) => ({
+  ...state,
+  contacts: state.contacts.filter((contact) => contact.id !== payload),
+});
+
+const onChangeFilter = (state, { payload }) => ({
+  ...state,
+  filter: payload,
+});
+
+const phonebookReducer = createReducer(initialState, {
+  [getContacts.type]: onGetContacts,
+  [addContact.type]: onAddContact,
+  [deleteContact.type]: onDeleteContact,
+  [changeFilter.type]: onChangeFilter,
+});
 
 export default phonebookReducer;
