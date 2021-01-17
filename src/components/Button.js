@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ButtonBasic from '../styles/ButtonBasicStyles';
-import tokens from '../styles/tokens';
+import ButtonBasic from 'styles/ButtonBasicStyles';
+import tokens from 'styles/tokens';
 
 const Button = styled(ButtonBasic)`
   margin-left: auto;

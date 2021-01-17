@@ -1,13 +1,19 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import {
+  getStateContacts,
+  getVisibleContacts,
+} from 'redux/phonebook/phonebookSelectors';
 
-const Stats = ({ totalContacts = 0, visibleContacts = 0 }) => (
-  <div>
-    <p>Всего контактов: {totalContacts}</p>
-    <p>Показано контактов: {visibleContacts}</p>
-  </div>
-);
-Stats.propTypes = {
-  totalContacts: PropTypes.number,
-  visibleContacts: PropTypes.number,
+const Stats = () => {
+  const contacts = useSelector(getStateContacts);
+  const visibleContacts = useSelector(getVisibleContacts);
+
+  return (
+    <div>
+      <p>Всего контактов: {contacts.length}</p>
+      <p>Показано контактов: {visibleContacts.length}</p>
+    </div>
+  );
 };
+
 export default Stats;
